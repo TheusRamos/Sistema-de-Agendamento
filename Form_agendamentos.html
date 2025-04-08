@@ -1,27 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="css/Style.css"/> 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-  <title>Agendamento</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/Style.css"/> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>Agendamento</title>
 </head>
 <body style="background: linear-gradient(100deg, #1e1e2f, #0f2027);">
   
   <div>
     <h1 style="margin-bottom: 15%; text-align: center;">Preencha o Formulário</h1>
     <form action="inserir_agendamento.php" method="POST">
+      
       <label for="usuario_id">ID do Usuário:</label><br>
       <input type="number" name="usuario_id" required><br><br>
   
       <label for="data_hora">Data e Hora:</label><br>
       <input type="datetime-local" name="data_hora" required><br><br>
   
-      <label for="descricao">Serviço:</label><br>
-      <input type="text" name="descricao" required><br><br>
-  
+     
+        <label for="nome">Nome:</label><br>
+        <input type="text" name="nome" required><br><br>
+        
+
+        <label> Qual consulta deseja marcar?<br><br></label>
+
+        <label>
+          <input type="radio" name="consulta" value="Clínico Geral" style="width: 20px; padding: 10px;">
+          Consulta com Clínico Geral
+        </label><br>
+        <label>
+          <input type="radio" name="consulta" value="Pediatra" style="width: 20px; padding: 10px;">
+          Consulta com Pediatra
+        </label><br>
+        <label>
+          <input type="radio" name="consulta" value="Ginecologista" style="width: 20px; padding: 10px;">
+          Consulta com Ginecologista
+        </label><br>
+        <label>
+          <input type="radio" name="consulta" value="Psicólogo" style="width: 20px; padding: 10px;">
+          Consulta com Psicólogo
+        </label><br>
+      
       <button type="submit">Agendar</button>
     </form>
   </div>
