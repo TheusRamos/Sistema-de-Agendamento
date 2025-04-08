@@ -15,12 +15,10 @@
     
   }
 
-
   h1 {
     color: #00bcd4;
     font-size: 3rem;  
   }
-
 
   input {
     width: 100%;
@@ -43,9 +41,17 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-left: 37%;
+    margin-top: 50px;
   }
 
   div{
     margin-top: 8%;  
     margin-left: 37%; 
+  }
+  
+  .radio-option {
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    margin-right: 10px;
   }
