@@ -7,8 +7,7 @@
 - Marcos
 
 ## Objetivo da Aplicação
-A aplicação deve fazer o agendamento de consultas médicas, a partir de uma aplicação web
-na qual cada usuário terá um login para efetuar antes de conseguir criar o agendamento.
+A aplicação deve fazer o agendamento de consultas médicas, a partir de um ID de usuário, nome e data e hora da consulta
 
 ## Tecnologias Utilizadas
 - HTML
