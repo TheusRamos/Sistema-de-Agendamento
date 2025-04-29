@@ -1,8 +1,10 @@
 # Sistema de Agendamento Médico
 
 ## 👥 Integrantes
-- Matheus Ramos (exemplo, altere)
-- [Adicione aqui os demais]
+- Matheus Ramos de Freitas
+- Lukas Raymond Freitas Vieira
+- Pedro Henrique da Silva Farias
+- Marcos Vinícius Ferreira de Souza
 
 ## 🎯 Objetivo
 Criar uma aplicação web para agendamento de consultas médicas.
@@ -14,7 +16,7 @@ Criar uma aplicação web para agendamento de consultas médicas.
 - PHP
 - Fetch API (AJAX)
 
-## ✅ Funcionalidades da Entrega 1
+## ✅ Funcionalidades
 - Interface estilizada com campos interativos
 - Manipulação do DOM com JavaScript (campos condicionais)
 - Envio de formulário via POST com validações em PHP
