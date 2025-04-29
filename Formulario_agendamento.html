@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="Style.css"/> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <title>Agendamento</title>
+    <script>
+        function confirmarEnvio() {
+          alert('Formulário enviado com sucesso!');
+          return true;
+        }
+
+        function buscarHorarios() {
+          fetch('horarios.php')
+            .then(res => res.json())
+            .then(data => {
+              const div = document.getElementById('horarios');
+              div.innerHTML = "<strong>Horários disponíveis:</strong><br>" + data.join("<br>");
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          const radios = document.querySelectorAll("input[name='consulta']");
+          const campoTerapia = document.getElementById("campo-terapia");
+
+          radios.forEach(radio => {
+            radio.addEventListener("change", function () {
+              campoTerapia.style.display = this.value === "Psicólogo" ? "block" : "none";
+            });
+          });
+        });
+    </script>
+</head>
+<body style="background: linear-gradient(100deg, #1e1e2f, #0f2027); font-family: 'Poppins', sans-serif; color: #fff; padding: 20px;">
+
+  <div style="max-width: 600px; margin: auto;">
+    <h1 style="text-align: center; margin-bottom: 40px;">Preencha o Formulário</h1>
+
+    <!-- Formulário de busca -->
+    <form action="buscar.php" method="GET" style="margin-bottom: 30px;">
+      <label for="busca">Buscar usuário por nome:</label>
+      <input type="text" name="busca" placeholder="Digite o nome" class="input-style">
+      <button type="submit" class="btn">Buscar</button>
+    </form>
+
+    <!-- Formulário de agendamento -->
+    <form action="inserir_agendamento.php" method="POST" onsubmit="return confirmarEnvio()">
+      <label for="usuario_id">ID do Usuário:</label>
+      <input type="number" name="usuario_id" required class="input-style">
+
+      <label for="data_hora">Data e Hora:</label>
+      <input type="datetime-local" name="data_hora" required class="input-style">
+
+      <label for="nome">Nome:</label>
+      <input type="text" name="nome" required class="input-style">
+
+      <label style="margin-top: 20px;">Qual consulta deseja marcar?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="consulta" value="Clínico Geral"> Clínico Geral</label>
+        <label><input type="radio" name="consulta" value="Pediatra"> Pediatra</label>
+        <label><input type="radio" name="consulta" value="Ginecologista"> Ginecologista</label>
+        <label><input type="radio" name="consulta" value="Psicólogo"> Psicólogo</label>
+      </div>
+
+      <div id="campo-terapia" style="display: none; margin-top: 10px;">
+        <label for="linha_terapeutica">Linha Terapêutica:</label>
+        <input type="text" name="linha_terapeutica" class="input-style">
+      </div>
+
+      <button type="submit" class="btn">Agendar</button>
+    </form>
+
+    <button type="button" class="btn" onclick="buscarHorarios()" style="margin-top: 20px;">Ver Horários Disponíveis</button>
+    <div id="horarios" style="margin-top: 20px;"></div>
+  </div>
+</body>
+</html>
