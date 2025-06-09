@@ -1,6 +1,6 @@
 <?php
 session_start();
-// Verifica se o usuário está logado
+
 if (!isset($_SESSION['usuario_id'])) {
     header('Location: login.html');
     exit;
@@ -8,7 +8,7 @@ if (!isset($_SESSION['usuario_id'])) {
 
 require 'conexao.php';
 
-// Validação dos campos
+
 if (empty($_POST['nome']) || empty($_POST['telefone']) || empty($_POST['cpf']) || empty($_POST['email']) || empty($_POST['consulta']) || empty($_POST['data']) || empty($_POST['hora'])) {
     die("Erro: Todos os campos do agendamento são obrigatórios. <a href='AgendamentoPage.html'>Voltar</a>");
 }
@@ -17,11 +17,11 @@ $nome = $_POST['nome'];
 $telefone = $_POST['telefone'];
 $cpf = $_POST['cpf'];
 $email = $_POST['email'];
-$consulta_id = $_POST['consulta']; // Agora recebe o ID (1, 2, 3...)
+$consulta_id = $_POST['consulta']; 
 $data = $_POST['data'];
 $hora = $_POST['hora'];
 
-// Verifica se o paciente já existe pelo CPF
+
 $sql_paciente = "SELECT id FROM pacientes WHERE cpf = :cpf";
 $stmt_paciente = $pdo->prepare($sql_paciente);
 $stmt_paciente->bindParam(':cpf', $cpf);
@@ -31,10 +31,10 @@ $paciente = $stmt_paciente->fetch(PDO::FETCH_ASSOC);
 
 $paciente_id = null;
 if ($paciente) {
-    // Se o paciente existe, usa o ID dele
+   
     $paciente_id = $paciente['id'];
 } else {
-    // Se não existe, insere um novo paciente e pega o ID
+   
     $sql_insert_paciente = "INSERT INTO pacientes (nome, telefone, cpf, email) VALUES (:nome, :telefone, :cpf, :email)";
     $stmt_insert_paciente = $pdo->prepare($sql_insert_paciente);
     $stmt_insert_paciente->bindParam(':nome', $nome);
@@ -45,7 +45,7 @@ if ($paciente) {
     $paciente_id = $pdo->lastInsertId();
 }
 
-// Registrar o agendamento
+
 $sql_agendamento = "INSERT INTO agendamentos (paciente_id, consulta_id, data_consulta, hora_consulta)
                     VALUES (:paciente_id, :consulta_id, :data_consulta, :hora_consulta)";
 $stmt_agendamento = $pdo->prepare($sql_agendamento);
