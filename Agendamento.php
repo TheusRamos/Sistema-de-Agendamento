@@ -1,55 +1,65 @@
 <?php
-
 session_start();
+// Verifica se o usuário está logado
 if (!isset($_SESSION['usuario_id'])) {
     header('Location: login.html');
     exit;
 }
 
-
 require 'conexao.php';
+
+// Validação dos campos
+if (empty($_POST['nome']) || empty($_POST['telefone']) || empty($_POST['cpf']) || empty($_POST['email']) || empty($_POST['consulta']) || empty($_POST['data']) || empty($_POST['hora'])) {
+    die("Erro: Todos os campos do agendamento são obrigatórios. <a href='AgendamentoPage.html'>Voltar</a>");
+}
 
 $nome = $_POST['nome'];
 $telefone = $_POST['telefone'];
 $cpf = $_POST['cpf'];
 $email = $_POST['email'];
-$consulta_id = $_POST['consulta'];
+$consulta_id = $_POST['consulta']; // Agora recebe o ID (1, 2, 3...)
 $data = $_POST['data'];
 $hora = $_POST['hora'];
 
 // Verifica se o paciente já existe pelo CPF
-$sql = "SELECT id FROM pacientes WHERE cpf = :cpf";
-$stmt = $pdo->prepare($sql);
-$stmt->bindParam(':cpf', $cpf);
-$stmt->execute();
+$sql_paciente = "SELECT id FROM pacientes WHERE cpf = :cpf";
+$stmt_paciente = $pdo->prepare($sql_paciente);
+$stmt_paciente->bindParam(':cpf', $cpf);
+$stmt_paciente->execute();
 
-$paciente = $stmt->fetch(PDO::FETCH_ASSOC);
+$paciente = $stmt_paciente->fetch(PDO::FETCH_ASSOC);
 
+$paciente_id = null;
 if ($paciente) {
+    // Se o paciente existe, usa o ID dele
     $paciente_id = $paciente['id'];
 } else {
-    $sql = "INSERT INTO pacientes (nome, telefone, cpf, email) VALUES (:nome, :telefone, :cpf, :email)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':nome', $nome);
-    $stmt->bindParam(':telefone', $telefone);
-    $stmt->bindParam(':cpf', $cpf);
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
+    // Se não existe, insere um novo paciente e pega o ID
+    $sql_insert_paciente = "INSERT INTO pacientes (nome, telefone, cpf, email) VALUES (:nome, :telefone, :cpf, :email)";
+    $stmt_insert_paciente = $pdo->prepare($sql_insert_paciente);
+    $stmt_insert_paciente->bindParam(':nome', $nome);
+    $stmt_insert_paciente->bindParam(':telefone', $telefone);
+    $stmt_insert_paciente->bindParam(':cpf', $cpf);
+    $stmt_insert_paciente->bindParam(':email', $email);
+    $stmt_insert_paciente->execute();
     $paciente_id = $pdo->lastInsertId();
 }
 
 // Registrar o agendamento
-$sql = "INSERT INTO agendamentos (paciente_id, consulta_id, data_consulta, hora_consulta)
-        VALUES (:paciente_id, :consulta_id, :data_consulta, :hora_consulta)";
-$stmt = $pdo->prepare($sql);
-$stmt->bindParam(':paciente_id', $paciente_id);
-$stmt->bindParam(':consulta_id', $consulta_id);
-$stmt->bindParam(':data_consulta', $data);
-$stmt->bindParam(':hora_consulta', $hora);
+$sql_agendamento = "INSERT INTO agendamentos (paciente_id, consulta_id, data_consulta, hora_consulta)
+                    VALUES (:paciente_id, :consulta_id, :data_consulta, :hora_consulta)";
+$stmt_agendamento = $pdo->prepare($sql_agendamento);
+$stmt_agendamento->bindParam(':paciente_id', $paciente_id);
+$stmt_agendamento->bindParam(':consulta_id', $consulta_id);
+$stmt_agendamento->bindParam(':data_consulta', $data);
+$stmt_agendamento->bindParam(':hora_consulta', $hora);
 
-if ($stmt->execute()) {
-    echo "Agendamento realizado!";
+if ($stmt_agendamento->execute()) {
+    echo "<h1>Agendamento Realizado com Sucesso!</h1>";
+    echo "<p>Sua consulta foi agendada para o dia " . htmlspecialchars($data) . " às " . htmlspecialchars($hora) . ".</p>";
+    echo "<a href='AgendamentoPage.html'>Fazer um novo agendamento</a><br>";
+    echo "<a href='logout.php'>Sair</a>";
 } else {
-    echo "Erro ao agendar.";
+    echo "Erro ao agendar. Por favor, tente novamente. <a href='AgendamentoPage.html'>Voltar</a>";
 }
 ?>
