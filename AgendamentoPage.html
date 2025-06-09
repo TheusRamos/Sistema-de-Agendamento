@@ -10,140 +10,85 @@
     <main class="flex flex-col items-center justify-center min-h-screen p-4">
       <div class="max-w-md w-full bg-white rounded-lg p-8 shadow-md">
         <h1 class="text-3xl font-bold text-center text-[#111218] mb-6">Agendamento</h1>
-        <form id="agendamentoForm" class="space-y-5">
+        <form id="agendamentoForm" action="agendamento.php" method="POST" class="space-y-5">
           <div>
             <label for="nome" class="block text-[#111218] font-medium mb-1">Nome completo</label>
             <input
-              type="text"
-              id="nome"
-              name="nome"
+              type="text" id="nome" name="nome"
               class="w-full rounded-md border border-gray-300 p-3 text-[#111218]"
-              placeholder="Digite seu nome completo"
-              required
+              placeholder="Digite seu nome completo" required
             />
           </div>
 
           <div>
             <label for="email" class="block text-[#111218] font-medium mb-1">Email</label>
             <input
-              type="email"
-              id="email"
-              name="email"
+              type="email" id="email" name="email"
               class="w-full rounded-md border border-gray-300 p-3 text-[#111218]"
-              placeholder="Digite seu email"
-              required
+              placeholder="Digite seu email" required
             />
           </div>
 
           <div>
             <label for="telefone" class="block text-[#111218] font-medium mb-1">Telefone</label>
             <input
-              type="tel"
-              id="telefone"
-              name="telefone"
+              type="tel" id="telefone" name="telefone"
               class="w-full rounded-md border border-gray-300 p-3 text-[#111218]"
-              placeholder="(XX) XXXXX-XXXX"
-              required
-              pattern="\(?\d{2}\)?\s?\d{4,5}-?\d{4}"
+              placeholder="(XX) XXXXX-XXXX" required
+            />
+          </div>
+
+          <div>
+            <label for="cpf" class="block text-[#111218] font-medium mb-1">CPF</label>
+            <input
+              type="text" id="cpf" name="cpf"
+              class="w-full rounded-md border border-gray-300 p-3 text-[#111218]"
+              placeholder="000.000.000-00" required
             />
           </div>
 
           <div>
             <label for="data" class="block text-[#111218] font-medium mb-1">Data da consulta</label>
             <input
-              type="date"
-              id="data"
-              name="data"
-              class="w-full rounded-md border border-gray-300 p-3 text-[#111218]"
-              required
+              type="date" id="data" name="data"
+              class="w-full rounded-md border border-gray-300 p-3 text-[#111218]" required
+            />
+          </div>
+
+          <div>
+            <label for="hora" class="block text-[#111218] font-medium mb-1">Hora da consulta</label>
+            <input
+              type="time" id="hora" name="hora"
+              class="w-full rounded-md border border-gray-300 p-3 text-[#111218]" required
             />
           </div>
 
           <div>
             <label for="consulta" class="block text-[#111218] font-medium mb-1">Tipo de consulta</label>
-            <select
-              id="consulta"
-              name="consulta"
-              class="w-full rounded-md border border-gray-300 p-3 text-[#111218]"
-              required
-            >
+            <select id="consulta" name="consulta" class="w-full rounded-md border border-gray-300 p-3 text-[#111218]" required>
               <option value="" disabled selected>Selecione a consulta</option>
-              <option>Cardiologia</option>
-              <option>Dermatologia</option>
-              <option>Endocrinologia</option>
-              <option>Gastroenterologia</option>
-              <option>Ginecologia</option>
-              <option>Neurologia</option>
-              <option>Oftalmologia</option>
-              <option>Ortopedia</option>
-              <option>Pediatria</option>
-              <option>Pneumologia</option>
-              <option>Psiquiatria</option>
-              <option>Urologia</option>
-              <option>Clínica Geral</option>
-              <option>Otorrinolaringologia</option>
-              <option>Reumatologia</option>
-              <option>Oncologia</option>
-              <option>Nefrologia</option>
-              <option>Hematologia</option>
-              <option>Infectologia</option>
-              <option>Endoscopia</option>
+              <option value="1">Cardiologia</option>
+              <option value="2">Dermatologia</option>
+              <option value="3">Endocrinologia</option>
+              <option value="4">Ginecologia</option>
+              <option value="5">Neurologia</option>
+              <option value="6">Oftalmologia</option>
+              <option value="7">Ortopedia</option>
+              <option value="8">Pediatria</option>
+              <option value="9">Psiquiatria</option>
+              <option value="10">Urologia</option>
+              <option value="11">Clínica Geral</option>
             </select>
-            
           </div>
 
-          <button
-            type="submit"
-            class="w-full bg-[#4768fa] hover:bg-[#3755d1] text-white font-bold py-3 rounded-full transition-colors"
-          >
+          <button type="submit" class="w-full bg-[#4768fa] hover:bg-[#3755d1] text-white font-bold py-3 rounded-full transition-colors">
             Agendar
           </button>
-          <button
-            onclick="window.location.href='logout.php'"
-            class="w-full bg-[#4768fa] hover:bg-[#3755d1] text-white font-bold py-3 rounded-full transition-colors"
-          >
-            Encerrar Seção
-          </button>
+          <a href="logout.php" class="block w-full text-center bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 rounded-full transition-colors">
+            Sair
+          </a>
         </form>
       </div>
     </main>
-
-    <script>
-      const form = document.getElementById('agendamentoForm');
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const nome = form.nome.value.trim();
-        const email = form.email.value.trim();
-        const telefone = form.telefone.value.trim();
-        const data = form.data.value;
-        const consulta = form.consulta.value;
-
-        if (!nome || !email || !telefone || !data || !consulta) {
-          alert('Por favor, preencha todos os campos.');
-          return;
-        }
-
-        try {
-          const response = await fetch('http://localhost:3000/agendamento', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nome, email, telefone, data, consulta }),
-          });
-
-          const dataResp = await response.json();
-
-          if (response.ok) {
-            alert(dataResp.message);
-            form.reset();
-          } else {
-            alert(dataResp.message);
-          }
-        } catch (error) {
-          alert('Erro ao conectar ao servidor.');
-        }
-      });
-    </script>
   </body>
 </html>
