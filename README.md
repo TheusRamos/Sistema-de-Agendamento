@@ -73,7 +73,8 @@ Inicie os serviços do seu servidor local (Apache e PostgreSQL).
 Abra seu navegador e acesse a aplicação. Comece pela página de cadastro ou login: http://localhost/nome_da_pasta/Cadastro.html ou http://localhost/nome_da_pasta/login.html.
 
 - Estrutura de Arquivos
-/
+
+
 ── Cadastro.html         
 ── Cadastro.php          
 ── login.html           
