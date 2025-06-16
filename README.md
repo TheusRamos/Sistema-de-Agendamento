@@ -1,30 +1,82 @@
-# Sistema de Agendamento Médico
+Sistema de Agendamento de Consultas Médicas
+🎯 Objetivo
+Este projeto é uma aplicação web desenvolvida para facilitar o agendamento de consultas médicas. O sistema permite que usuários se cadastrem, façam login e marquem consultas de diversas especialidades, enquanto o backend gerencia os dados de pacientes e agendamentos de forma segura e eficiente.
 
-## 👥 Integrantes
-- Matheus Ramos de Freitas
-- Lukas Raymond Freitas Vieira
-- Pedro Henrique da Silva Farias
-- Marcos Vinícius Ferreira de Souza
+🚀 Tecnologias Utilizadas
+Front-end: HTML, Tailwind CSS, JavaScript
+Back-end: PHP
+Banco de Dados: PostgreSQL
+✅ Funcionalidades Principais
+Gerenciamento de Usuários
+Cadastro de Usuários: Novos usuários podem criar uma conta fornecendo nome completo, e-mail e senha.
+Validação de E-mail: O sistema impede o cadastro de e-mails que já existem na base de dados.
+Segurança de Senha: As senhas são armazenadas de forma segura no banco de dados utilizando password_hash.
+Login e Autenticação: Usuários cadastrados podem acessar o sistema através de uma página de login. O acesso é gerenciado por sessões PHP.
+Logout Seguro: Uma funcionalidade de "Sair" encerra a sessão do usuário de forma segura.
+Agendamento de Consultas
+Acesso Restrito: A página de agendamento só pode ser acessada por usuários autenticados.
+Formulário de Agendamento: Interface para o usuário preencher seus dados (nome, e-mail, telefone, CPF) e escolher a especialidade, a data e a hora da consulta.
+Gerenciamento de Pacientes: O sistema verifica se o paciente (identificado pelo CPF) já existe. Caso não exista, um novo registro é criado automaticamente.
+Confirmação de Agendamento: Após o agendamento, o usuário é redirecionado para uma página de sucesso que confirma os detalhes da consulta.
+Interface Intuitiva: O usuário tem a opção de realizar um novo agendamento ou sair do sistema após a confirmação.
+🛠️ Como Executar
+Clone o Repositório:
 
-## 🎯 Objetivo
-Criar uma aplicação web para agendamento de consultas médicas.
+Bash
 
-## 🚀 Tecnologias utilizadas
-- HTML
-- CSS
-- JavaScript
-- PHP
-- Fetch API (AJAX)
+git clone <URL_DO_SEU_REPOSITORIO>
+Servidor Local:
 
-## ✅ Funcionalidades
-- Interface estilizada com campos interativos
-- Manipulação do DOM com JavaScript (campos condicionais)
-- Envio de formulário via POST com validações em PHP
-- Uso de funções PHP personalizadas (validação e formatação de data)
-- Envio de formulário via GET
-- Requisição assíncrona (fetch) para mostrar horários disponíveis
+Utilize um ambiente de servidor local como XAMPP, WampServer ou Laragon.
+Mova a pasta do projeto para o diretório raiz do seu servidor (ex: htdocs no XAMPP).
+Banco de Dados:
 
-## 🛠️ Como executar
-1. Clonar o repositório
-2. Subir em um servidor local (ex: XAMPP ou Laragon)
-3. Acessar `Formulario_agendamento.html` via navegador
+Crie um banco de dados no PostgreSQL com o nome sistema_clinico.
+Crie as tabelas necessárias (usuarios, pacientes, agendamentos). Você pode usar o seguinte SQL como base:
+SQL
+
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE pacientes (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    telefone VARCHAR(20),
+    cpf VARCHAR(14) UNIQUE NOT NULL,
+    email VARCHAR(255)
+);
+
+CREATE TABLE agendamentos (
+    id SERIAL PRIMARY KEY,
+    paciente_id INTEGER REFERENCES pacientes(id),
+    consulta_id INTEGER NOT NULL, -- Assumindo que o ID se refere ao tipo de consulta
+    data_consulta DATE NOT NULL,
+    hora_consulta TIME NOT NULL
+);
+Configurar a Conexão:
+
+Abra o arquivo Conexao.php.
+Altere a variável $password para a senha do seu usuário do PostgreSQL.
+PHP
+
+$password = 'sua_senha'; // <-- COLOQUE SUA SENHA AQUI
+Acessar a Aplicação:
+
+Inicie os serviços do seu servidor local (Apache e PostgreSQL).
+Abra seu navegador e acesse a aplicação. Comece pela página de cadastro ou login: http://localhost/nome_da_pasta/Cadastro.html ou http://localhost/nome_da_pasta/login.html.
+📂 Estrutura de Arquivos
+/
+├── Cadastro.html         # Página de cadastro de novos usuários.
+├── Cadastro.php          # Processa o cadastro de usuários.
+├── login.html            # Página de login para usuários existentes.
+├── login.php             # Processa a autenticação do usuário.
+├── AgendamentoPage.html  # Página para realizar um novo agendamento.
+├── agendamento.php       # Processa e salva o agendamento no banco.
+├── agendamento_sucesso.html # Página de confirmação de agendamento.
+├── logout.php            # Script para encerrar a sessão do usuário.
+├── conexao.php           # Script de conexão com o banco de dados.
+├── README.md             # Este arquivo.
