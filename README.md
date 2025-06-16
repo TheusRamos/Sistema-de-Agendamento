@@ -74,13 +74,13 @@ Abra seu navegador e acesse a aplicação. Comece pela página de cadastro ou lo
 
 - Estrutura de Arquivos
 /
-├── Cadastro.html         # Página de cadastro de novos usuários.
-├── Cadastro.php          # Processa o cadastro de usuários.
-├── login.html            # Página de login para usuários existentes.
-├── login.php             # Processa a autenticação do usuário.
-├── AgendamentoPage.html  # Página para realizar um novo agendamento.
-├── agendamento.php       # Processa e salva o agendamento no banco.
-├── agendamento_sucesso.html # Página de confirmação de agendamento.
-├── logout.php            # Script para encerrar a sessão do usuário.
-├── conexao.php           # Script de conexão com o banco de dados.
-├── README.md             # Este arquivo.
+── Cadastro.html         
+── Cadastro.php          
+── login.html           
+── login.php             
+── AgendamentoPage.html 
+── agendamento.php       
+── agendamento_sucesso.html 
+── logout.php            
+── conexao.php           
+── README.md             
