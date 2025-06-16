@@ -54,11 +54,13 @@ $stmt_agendamento->bindParam(':consulta_id', $consulta_id);
 $stmt_agendamento->bindParam(':data_consulta', $data);
 $stmt_agendamento->bindParam(':hora_consulta', $hora);
 
+
 if ($stmt_agendamento->execute()) {
-    echo "<h1>Agendamento Realizado com Sucesso!</h1>";
-    echo "<p>Sua consulta foi agendada para o dia " . htmlspecialchars($data) . " às " . htmlspecialchars($hora) . ".</p>";
-    echo "<a href='AgendamentoPage.html'>Fazer um novo agendamento</a><br>";
-    echo "<a href='logout.php'>Sair</a>";
+    
+
+    header('Location: agendamento_sucesso.html?data=' . urlencode($data) . '&hora=' . urlencode($hora));
+    exit; 
+
 } else {
     echo "Erro ao agendar. Por favor, tente novamente. <a href='AgendamentoPage.html'>Voltar</a>";
 }
