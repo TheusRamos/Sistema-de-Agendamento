@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Agendamento Realizado</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-[#f7f8fc]">
+    <main class="flex flex-col items-center justify-center min-h-screen p-4">
+      <div class="max-w-md w-full bg-white rounded-lg p-8 shadow-md text-center">
+        <h1 class="text-3xl font-bold text-[#111218] mb-4">Agendamento Realizado com Sucesso!</h1>
+        <p id="mensagemSucesso" class="text-[#111218] mb-8 text-lg"></p>
+        
+        <div class="space-y-4">
+          <a href="AgendamentoPage.html" class="block w-full bg-[#4768fa] hover:bg-[#3755d1] text-white font-bold py-3 rounded-full transition-colors">
+            Fazer um novo agendamento
+          </a>
+          <a href="logout.php" class="block w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 rounded-full transition-colors">
+            Sair
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Pega os parâmetros da URL
+      const params = new URLSearchParams(window.location.search);
+      const data = params.get('data');
+      const hora = params.get('hora');
+      const mensagemDiv = document.getElementById('mensagemSucesso');
+
+      if (data && hora) {
+        // Formata a data para o padrão brasileiro (dd/mm/aaaa)
+        const dataFormatada = new Date(data + 'T00:00:00').toLocaleDateString('pt-BR');
+        mensagemDiv.textContent = `Sua consulta foi agendada para o dia ${dataFormatada} às ${hora}.`;
+      }
+    </script>
+  </body>
+</html>
